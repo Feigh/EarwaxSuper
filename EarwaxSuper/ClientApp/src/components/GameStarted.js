@@ -57,8 +57,8 @@ var GameStarted = /** @class */ (function (_super) {
     __extends(GameStarted, _super);
     function GameStarted(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { playerinput: [] };
-        console.log("Game Started");
+        _this.state = { playerinput: [], inputvalue: "" };
+        _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
     GameStarted.prototype.componentDidMount = function () {
@@ -75,10 +75,40 @@ var GameStarted = /** @class */ (function (_super) {
                 return React.createElement("tr", { key: pp }, pp);
             }))));
     };
+    GameStarted.prototype.handleChange = function (e) {
+        this.setState({
+            inputvalue: e.target.value
+        });
+    };
     GameStarted.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", null,
             React.createElement("h1", { id: "tabelLabel" }, "Player Input"),
-            this.renderPlayerInputTable(this.state.playerinput)));
+            this.renderPlayerInputTable(this.state.playerinput),
+            React.createElement("h1", { id: "tabelLabel" }, "Test Input"),
+            React.createElement("input", { id: "testplayerinput", onChange: this.handleChange, type: "input" }),
+            React.createElement("button", { type: "button", className: "btn btn-primary btn-lg", onClick: function () { _this.submitPlayerInputData(_this.state.inputvalue); } }, "Submit")));
+    };
+    GameStarted.prototype.submitPlayerInputData = function (answer) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url, requestOptions;
+            var _this = this;
+            return __generator(this, function (_a) {
+                console.log(JSON.stringify({ answer: answer }));
+                url = 'api/game';
+                requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    //headers: { 'Content-Type': 'text/plain' },
+                    //body: value
+                    body: JSON.stringify({ answer: answer })
+                };
+                fetch(url, requestOptions)
+                    .then(function (response) { return _this.populatePlayerInputData(); })
+                    .catch(function (error) { return console.log('Form submit error', error); });
+                return [2 /*return*/];
+            });
+        });
     };
     GameStarted.prototype.populatePlayerInputData = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -92,7 +122,6 @@ var GameStarted = /** @class */ (function (_super) {
                     case 2:
                         data = _a.sent();
                         console.log("Loading serverdata");
-                        console.log(data);
                         this.setState({ playerinput: data });
                         return [2 /*return*/];
                 }

@@ -6,8 +6,8 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
 
     constructor(props: any) {
         super(props);
-        this.state = { playerinput: [] };
-        console.log("Game Started")
+        this.state = { playerinput: [], inputvalue: "" };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     public componentDidMount() {
@@ -34,13 +34,41 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
         );
     }
 
+    private handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            inputvalue :e.target.value
+        });
+    }
+
     public render() {
         return (
             <div>
                 <h1 id="tabelLabel" >Player Input</h1>
                 {this.renderPlayerInputTable(this.state.playerinput)}
+                <h1 id="tabelLabel" >Test Input</h1>
+                <input id="testplayerinput" onChange={this.handleChange} type="input" />
+                <button type="button"
+                    className="btn btn-primary btn-lg"
+                    onClick={() => { this.submitPlayerInputData(this.state.inputvalue) }}>
+                    Submit
+                </button>
             </div>
         );
+    }
+
+    async submitPlayerInputData(answer: string) {
+        console.log(JSON.stringify({ answer }));
+        const url = 'api/game'
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            //headers: { 'Content-Type': 'text/plain' },
+            //body: value
+            body: JSON.stringify({ answer })
+        };
+        fetch(url, requestOptions)
+            .then(response => this.populatePlayerInputData())
+            .catch(error => console.log('Form submit error', error))
     }
 
     async populatePlayerInputData() {
@@ -48,7 +76,6 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
         const response = await fetch('api/game');
         const data = await response.json();
         console.log("Loading serverdata")
-        console.log(data);
         this.setState({ playerinput: data});
     }
 }

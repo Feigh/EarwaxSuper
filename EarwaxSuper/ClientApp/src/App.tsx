@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import * as React from "react"
 import { Route } from 'react-router';
 import { Home } from './components/Home';
 import { GameStarted } from './components/GameStarted';

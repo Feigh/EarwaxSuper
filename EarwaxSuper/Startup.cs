@@ -1,3 +1,4 @@
+using EarwaxSuper.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json.Serialization;
 
 namespace EarwaxSuper
 {
@@ -30,7 +32,18 @@ namespace EarwaxSuper
 								  });
 			});
 
+
 			services.AddControllersWithViews();
+
+			// Hade först aDdtransient här men varje gång du anropar apiet så skapar den om gamestate, så det fungerar inte för state hanterare
+			// Lade även till scoped men fick liknande problem. Vore intressant att testa skillnaden på scoped och transient
+			services.AddSingleton<IGameState, GameState>();
+
+			services.AddControllers().AddJsonOptions(options => {
+				options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+				options.JsonSerializerOptions.PropertyNamingPolicy = null;
+				options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+			});
 
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
