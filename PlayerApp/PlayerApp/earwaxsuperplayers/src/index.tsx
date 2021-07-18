@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import PlayerInput from './components/PlayerInput';
 
 ReactDOM.render(
   <React.StrictMode>

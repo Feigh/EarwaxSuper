@@ -15,12 +15,12 @@ namespace EarwaxSuper.Data
 
 		public void SavePlayerInput(string value)
 		{
-			throw new NotImplementedException();
+			PlayerInput.Add(value);
 		}
 
 		public List<string> GetPlayerInputs()
 		{
-			throw new NotImplementedException();
+			return PlayerInput;
 		}
 	}
 }
