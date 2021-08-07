@@ -9,5 +9,9 @@ namespace EarwaxSuper.Data
 	{ 
 		public void SavePlayerInput(string value);
 		public List<string> GetPlayerInputs();
+		public void AddPlayer(string name);
+		public List<string> GetPlayerList();
+		public void ChangeGameState(string state);
+		public string GetGameState();
 	}
 }

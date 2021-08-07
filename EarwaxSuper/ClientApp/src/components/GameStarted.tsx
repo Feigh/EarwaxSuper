@@ -1,12 +1,13 @@
 ﻿import * as React from 'react';
 import * as GameData from '../store/GameData';
+import  DropDown from './DropDown'
 
 
 export class GameStarted extends React.PureComponent<{}, GameData.GameDataState> {
 
     constructor(props: any) {
         super(props);
-        this.state = { playerinput: [], inputvalue: "" };
+        this.state = { playerinput: [], inputvalue: ""};
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -34,6 +35,15 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
         );
     }
 
+    public renderPlayerStatus(player: any) {
+        return (
+            <div>
+                <h1> Player Status </h1>
+
+            </div>
+        );
+    }
+
     private handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({
             inputvalue :e.target.value
@@ -52,6 +62,8 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
                     onClick={() => { this.submitPlayerInputData(this.state.inputvalue) }}>
                     Submit
                 </button>
+
+                <DropDown  />
             </div>
         );
     }
@@ -78,4 +90,5 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
         console.log("Loading serverdata")
         this.setState({ playerinput: data});
     }
+
 }

@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\DropDown.tsx" />
     <None Remove="ClientApp\src\components\GameStarted.tsx" />
     <None Remove="ClientApp\src\GameData.tsx" />
   </ItemGroup>

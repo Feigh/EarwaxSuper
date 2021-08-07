@@ -9,4 +9,9 @@ namespace EarwaxSuper.Data
 		{
 			public string answer { get; set; }
 		}
+
+		public class StatusData
+	{
+			public string status { get; set; }
+		}
 }

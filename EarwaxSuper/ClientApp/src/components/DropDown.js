@@ -51,90 +51,78 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GameStarted = void 0;
+exports.DropDown = void 0;
 var React = require("react");
-var DropDown_1 = require("./DropDown");
-var GameStarted = /** @class */ (function (_super) {
-    __extends(GameStarted, _super);
-    function GameStarted(props) {
+var DropDown = /** @class */ (function (_super) {
+    __extends(DropDown, _super);
+    function DropDown(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { playerinput: [], inputvalue: "" };
+        _this.state = { select: "waiting", currentstate: "" };
         _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
-    GameStarted.prototype.componentDidMount = function () {
+    DropDown.prototype.componentDidMount = function () {
         console.log("Game did mount");
-        this.populatePlayerInputData();
+        this.getCurrentState();
     };
-    GameStarted.prototype.renderPlayerInputTable = function (player) {
-        console.log(player);
-        return (React.createElement("table", { className: 'table table-striped', "aria-labelledby": "tabelLabel" },
-            React.createElement("thead", null,
-                React.createElement("tr", null,
-                    React.createElement("th", null, "Player Input"))),
-            React.createElement("tbody", null, player.map(function (pp) {
-                return React.createElement("tr", { key: pp }, pp);
-            }))));
-    };
-    GameStarted.prototype.renderPlayerStatus = function (player) {
-        return (React.createElement("div", null,
-            React.createElement("h1", null, " Player Status ")));
-    };
-    GameStarted.prototype.handleChange = function (e) {
+    DropDown.prototype.handleChange = function (e) {
         this.setState({
-            inputvalue: e.target.value
+            select: e
         });
     };
-    GameStarted.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", null,
-            React.createElement("h1", { id: "tabelLabel" }, "Player Input"),
-            this.renderPlayerInputTable(this.state.playerinput),
-            React.createElement("h1", { id: "tabelLabel" }, "Test Input"),
-            React.createElement("input", { id: "testplayerinput", onChange: this.handleChange, type: "input" }),
-            React.createElement("button", { type: "button", className: "btn btn-primary btn-lg", onClick: function () { _this.submitPlayerInputData(_this.state.inputvalue); } }, "Submit"),
-            React.createElement(DropDown_1.default, null)));
-    };
-    GameStarted.prototype.submitPlayerInputData = function (answer) {
+    DropDown.prototype.submitChangeState = function (status) {
         return __awaiter(this, void 0, void 0, function () {
             var url, requestOptions;
             var _this = this;
             return __generator(this, function (_a) {
-                console.log(JSON.stringify({ answer: answer }));
-                url = 'api/game';
+                console.log(JSON.stringify({ status: status }));
+                url = 'api/state';
                 requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    //headers: { 'Content-Type': 'text/plain' },
-                    //body: value
-                    body: JSON.stringify({ answer: answer })
+                    body: JSON.stringify({ status: status })
                 };
                 fetch(url, requestOptions)
-                    .then(function (response) { return _this.populatePlayerInputData(); })
+                    .then(function (response) { return _this.getCurrentState(); })
                     .catch(function (error) { return console.log('Form submit error', error); });
                 return [2 /*return*/];
             });
         });
     };
-    GameStarted.prototype.populatePlayerInputData = function () {
+    DropDown.prototype.getCurrentState = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, fetch('api/game')];
+                    case 0:
+                        console.log("Get State");
+                        return [4 /*yield*/, fetch('api/state')];
                     case 1:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
-                        console.log("Loading serverdata");
-                        this.setState({ playerinput: data });
+                        console.log("Loading state data");
+                        this.setState({ currentstate: data });
+                        console.log(data);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    return GameStarted;
+    DropDown.prototype.render = function () {
+        var _this = this;
+        return (React.createElement("div", null,
+            React.createElement("h1", null, "Nuvarande state"),
+            this.state.currentstate,
+            React.createElement("select", { name: "statuschoise", value: this.state.select, onChange: function (e) { return _this.handleChange(e.target.value); }, id: "statuschoise" },
+                React.createElement("option", { value: "waiting" }, "Waiting"),
+                React.createElement("option", { value: "started" }, "Started"),
+                React.createElement("option", { value: "finish" }, "Finish")),
+            React.createElement("button", { type: "button", className: "btn btn-primary btn-lg", onClick: function () { _this.submitChangeState(_this.state.select); } }, "Submit")));
+    };
+    return DropDown;
 }(React.PureComponent));
-exports.GameStarted = GameStarted;
-//# sourceMappingURL=GameStarted.js.map
+exports.DropDown = DropDown;
+exports.default = DropDown;
+//# sourceMappingURL=DropDown.js.map
