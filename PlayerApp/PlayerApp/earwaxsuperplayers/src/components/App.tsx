@@ -1,24 +1,65 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
+import { History, LocationState, createHashHistory } from "history";
 import logo from './logo.svg';
+import Login from './LogIn'
+import GameStarted from './GameStarted'
 import './App.css';
 
 interface PlayerState  {
- playerinput: []; //replace any with suitable type
+ gamestatus: string; //replace any with suitable type
+ history: History<LocationState>;
 }
 
-export class App extends React.PureComponent<{}, PlayerState> {
+export interface PlayerProps {
+    
+}
+
+export class App extends React.PureComponent<PlayerProps, PlayerState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { playerinput: [] };
+    this.state = { gamestatus: '', history: createHashHistory({hashType: 'hashbang'}) };
+}
+
+public componentDidMount() {
+    this.getGameStatus();
+}
+
+public statusChanged() {
+    if(this.state.gamestatus=='waiting')
+    {
+        this.state.history.push('/');
+    }
+    if(this.state.gamestatus=='started')
+    {
+        this.state.history.push('/gamestarted');
+    }
 }
 
 public render() {
     return (
         <div>
-            Vi bhöver sätta en regel här som gör så att om servern har status väntar så visas en runt och status started visas en annan ruta
+            <Router>
+                <Route exact path="/">
+                {this.state.gamestatus=='waiting' ? <Redirect to="/" /> : <Login />}
+                </Route>              
+                <Route path="/gamestarted">
+                {this.state.gamestatus=='started' ? <Redirect to="/gamestarted" /> : <GameStarted />}
+                </Route>    
+            </Router>
         </div>
     );
+}
+
+async getGameStatus() {
+    
+    const response = await fetch('https://localhost:44357/api/state');
+    const data = await response.json();
+    console.log("Loading serverdata")
+    console.log(data);
+    this.setState({ gamestatus: data});
+    this.statusChanged();
 }
 
 
