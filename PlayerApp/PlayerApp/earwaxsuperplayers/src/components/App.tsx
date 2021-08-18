@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
-import { History, LocationState, createHashHistory } from "history";
+import { History, LocationState, createBrowserHistory, createHashHistory  } from "history";
 import logo from './logo.svg';
 import Login from './LogIn'
 import GameStarted from './GameStarted'
@@ -19,7 +19,7 @@ export class App extends React.PureComponent<PlayerProps, PlayerState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { gamestatus: '', history: createHashHistory({hashType: 'hashbang'}) };
+    this.state = { gamestatus: '', history: createBrowserHistory() };
 }
 
 public componentDidMount() {
@@ -41,12 +41,8 @@ public render() {
     return (
         <div>
             <Router>
-                <Route exact path="/">
-                {this.state.gamestatus=='waiting' ? <Redirect to="/" /> : <Login />}
-                </Route>              
-                <Route path="/gamestarted">
-                {this.state.gamestatus=='started' ? <Redirect to="/gamestarted" /> : <GameStarted />}
-                </Route>    
+                <Route exact path="/" component={Login} />
+                <Route exact path="/gamestarted" component={GameStarted} /> 
             </Router>
         </div>
     );

@@ -10,7 +10,8 @@ export interface GameStartedState {
 class GameStarted extends React.Component<GameStartedProps, GameStartedState> {
     constructor(props: GameStartedProps) {
         super(props);
-       // this.state = { :  };
+        console.log("Startad");
+        
     }
     render() { 
         return ( <div><h2>Startat</h2></div> );
