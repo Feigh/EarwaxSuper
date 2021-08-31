@@ -48,6 +48,8 @@ namespace EarwaxSuper.Controllers
 			{
 				if (value.answer == null)
 					return BadRequest();
+				if (GameStatusEnum.started !=_state.GetGameState())
+					return NoContent();
 				_state.SavePlayerInput(value.answer);
 
 				return Ok();

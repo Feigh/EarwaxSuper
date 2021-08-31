@@ -7,15 +7,10 @@ namespace EarwaxSuper.Data
 {
 	public class GameState : IGameState
 	{
-		public enum GameStatusEnum
-		{
-			waiting,
-			started,
-			finish
-		}
+
 		private List<string> PlayerInput { get; set; }
 		private List<string> Players { get; set; }
-		private GameStatusEnum CurrentGameStatus { get; set; }
+		public GameStatusEnum CurrentGameStatus { get; set; }
 		public GameState()
 		{
 			PlayerInput = new List<string>();
@@ -48,9 +43,9 @@ namespace EarwaxSuper.Data
 			CurrentGameStatus = (GameStatusEnum)Enum.Parse(typeof(GameStatusEnum), status);
 		}
 
-		public string GetGameState()
+		public virtual GameStatusEnum GetGameState()
 		{
-			return CurrentGameStatus.ToString();
+			return CurrentGameStatus;
 		}
 	}
 }

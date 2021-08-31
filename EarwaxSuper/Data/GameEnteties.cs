@@ -5,7 +5,13 @@ using System.Threading.Tasks;
 
 namespace EarwaxSuper.Data
 {
-		public class GameData
+		public enum GameStatusEnum
+		{
+			waiting,
+			started,
+			finish
+		}
+	public class GameData
 		{
 			public string answer { get; set; }
 		}

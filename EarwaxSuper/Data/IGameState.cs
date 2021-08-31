@@ -12,6 +12,6 @@ namespace EarwaxSuper.Data
 		public void AddPlayer(string name);
 		public List<string> GetPlayerList();
 		public void ChangeGameState(string state);
-		public string GetGameState();
+		public GameStatusEnum GetGameState();
 	}
 }
