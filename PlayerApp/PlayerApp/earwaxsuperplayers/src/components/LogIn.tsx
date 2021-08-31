@@ -35,6 +35,10 @@ class LogIn extends React.Component<LogInProps, LogInState> {
                 return response.text();
             } 
             else{
+                console.log(response.status);
+                if(response.status==204){
+                    this.setState({errormessage:"Game State is not waiting"})
+                }
                 return "ok";
             }
         })
