@@ -54,6 +54,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GameStarted = void 0;
 var React = require("react");
 var DropDown_1 = require("./DropDown");
+var SoundPlayer_1 = require("./SoundPlayer");
 var GameStarted = /** @class */ (function (_super) {
     __extends(GameStarted, _super);
     function GameStarted(props) {
@@ -93,7 +94,8 @@ var GameStarted = /** @class */ (function (_super) {
             React.createElement("h1", { id: "tabelLabel" }, "Test Input"),
             React.createElement("input", { id: "testplayerinput", onChange: this.handleChange, type: "input" }),
             React.createElement("button", { type: "button", className: "btn btn-primary btn-lg", onClick: function () { _this.submitPlayerInputData(_this.state.inputvalue); } }, "Submit"),
-            React.createElement(DropDown_1.default, null)));
+            React.createElement(DropDown_1.default, null),
+            React.createElement(SoundPlayer_1.default, null)));
     };
     GameStarted.prototype.submitPlayerInputData = function (answer) {
         return __awaiter(this, void 0, void 0, function () {

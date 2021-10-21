@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import * as GameData from '../store/GameData';
-import  DropDown from './DropDown'
+import DropDown from './DropDown'
+import SoundPlayer from './SoundPlayer'
 
 
 export class GameStarted extends React.PureComponent<{}, GameData.GameDataState> {
@@ -63,7 +64,8 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
                     Submit
                 </button>
 
-                <DropDown  />
+                <DropDown />
+                <SoundPlayer />
             </div>
         );
     }

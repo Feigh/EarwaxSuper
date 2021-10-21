@@ -1,0 +1,1 @@
+{"version":3,"file":"SoundPlayer.js","sourceRoot":"","sources":["SoundPlayer.tsx"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;AAAA,6BAA+B;AAQ/B;IAAiC,+BAAyC;IACtE,qBAAY,KAAU;eAClB,kBAAM,KAAK,CAAC;IAChB,CAAC;IAEM,4BAAM,GAAb;QACI,OAAO,CACH;YACI,6BAAK,GAAG,EAAC,gDAAgD,GAAQ,CAC/D,CACT,CAAA;IACL,CAAC;IAEL,kBAAC;AAAD,CAAC,AAbD,CAAiC,KAAK,CAAC,aAAa,GAanD;AAbY,kCAAW;AAexB,kBAAe,WAAW,CAAA"}
