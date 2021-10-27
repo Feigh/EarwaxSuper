@@ -22,9 +22,15 @@ var SoundPlayer = /** @class */ (function (_super) {
     function SoundPlayer(props) {
         return _super.call(this, props) || this;
     }
+    SoundPlayer.prototype.componentDidMount = function () {
+    };
+    // Notering är att på grund av säkerhet stuff så låter chrome och etc inte en att autospela ljud
+    // Lösningen är att köra PWA och installera den på windows datorn
     SoundPlayer.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement("img", { src: "http://192.168.1.198/EarwaxSuperImage/song.jpg" })));
+            React.createElement("img", { src: "http://localhost/earwaxmedia/dog.jpg" }),
+            React.createElement("audio", { id: "audioId", autoPlay: true },
+                React.createElement("source", { src: "http://localhost/earwaxmedia/prezofbank.mp3", type: "audio/mp3" }))));
     };
     return SoundPlayer;
 }(React.PureComponent));
