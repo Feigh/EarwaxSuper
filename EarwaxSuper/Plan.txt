@@ -1,1 +1,12 @@
-﻿
+﻿TODO:
+
+Spelaren ska få en lista med tre olika namn
+Spelaren väljer ett och klickar välj
+När spelaren klickar välj så spelas det valde ljudet upp på skärmen
+
+Jag bör skapa en till app
+MainScreen App som är den som visar into
+client app är mest för testa och annan information
+kanske att den blir spelar appen sedan
+
+Man kör hela create app och skapa appen och kopier information härifrån så att mainscreen visar data
