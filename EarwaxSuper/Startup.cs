@@ -1,11 +1,14 @@
 using EarwaxSuper.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Net.WebSockets;
 using System.Text.Json.Serialization;
 
 namespace EarwaxSuper
@@ -71,6 +74,8 @@ namespace EarwaxSuper
 			app.UseSpaStaticFiles();
 
 			app.UseRouting();
+			app.UseWebSockets();
+
 
 			app.UseCors(MyAllowSpecificOrigins);
 

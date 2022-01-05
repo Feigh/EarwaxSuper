@@ -2,6 +2,7 @@
 import * as GameData from '../store/GameData';
 import DropDown from './DropDown'
 import SoundPlayer from './SoundPlayer'
+import PlayerList from './PlayerList'
 
 
 export class GameStarted extends React.PureComponent<{}, GameData.GameDataState> {
@@ -14,27 +15,8 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
 
     public componentDidMount() {
         console.log("Game did mount")
-        this.populatePlayerInputData();
     }
 
-    public renderPlayerInputTable(player: any) {
-        console.log(player)
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Player Input</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {player.map((pp : any) =>
-                        <tr key={pp}>{pp}
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
 
     public renderPlayerStatus(player: any) {
         return (
@@ -55,7 +37,7 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
         return (
             <div>
                 <h1 id="tabelLabel" >Player Input</h1>
-                {this.renderPlayerInputTable(this.state.playerinput)}
+                <PlayerList />
                 <h1 id="tabelLabel" >Test Input</h1>
                 <input id="testplayerinput" onChange={this.handleChange} type="input" />
                 <button type="button"
@@ -76,21 +58,12 @@ export class GameStarted extends React.PureComponent<{}, GameData.GameDataState>
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            //headers: { 'Content-Type': 'text/plain' },
-            //body: value
+
             body: JSON.stringify({ answer })
         };
         fetch(url, requestOptions)
-            .then(response => this.populatePlayerInputData())
+            .then(response => console.log("Data submited"))
             .catch(error => console.log('Form submit error', error))
-    }
-
-    async populatePlayerInputData() {
-
-        const response = await fetch('api/game');
-        const data = await response.json();
-        console.log("Loading serverdata")
-        this.setState({ playerinput: data});
     }
 
 }

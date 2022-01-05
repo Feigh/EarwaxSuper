@@ -51,61 +51,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GameStarted = void 0;
 var React = require("react");
-var DropDown_1 = require("./DropDown");
-var SoundPlayer_1 = require("./SoundPlayer");
-var PlayerList_1 = require("./PlayerList");
-var GameStarted = /** @class */ (function (_super) {
-    __extends(GameStarted, _super);
-    function GameStarted(props) {
+var PlayerList = /** @class */ (function (_super) {
+    __extends(PlayerList, _super);
+    function PlayerList(props) {
         var _this = _super.call(this, props) || this;
         _this.state = { playerinput: [], inputvalue: "" };
-        _this.handleChange = _this.handleChange.bind(_this);
+        ;
+        _this.populatePlayerInputData();
         return _this;
     }
-    GameStarted.prototype.componentDidMount = function () {
-        console.log("Game did mount");
+    PlayerList.prototype.render = function () {
+        return (React.createElement("table", { className: 'table table-striped', "aria-labelledby": "tabelLabel" },
+            React.createElement("thead", null,
+                React.createElement("tr", null,
+                    React.createElement("th", null, "Player Input"))),
+            React.createElement("tbody", null, this.state.playerinput.map(function (pp) {
+                return React.createElement("tr", { key: pp }, pp);
+            }))));
     };
-    GameStarted.prototype.renderPlayerStatus = function (player) {
-        return (React.createElement("div", null,
-            React.createElement("h1", null, " Player Status ")));
-    };
-    GameStarted.prototype.handleChange = function (e) {
-        this.setState({
-            inputvalue: e.target.value
-        });
-    };
-    GameStarted.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", null,
-            React.createElement("h1", { id: "tabelLabel" }, "Player Input"),
-            React.createElement(PlayerList_1.default, null),
-            React.createElement("h1", { id: "tabelLabel" }, "Test Input"),
-            React.createElement("input", { id: "testplayerinput", onChange: this.handleChange, type: "input" }),
-            React.createElement("button", { type: "button", className: "btn btn-primary btn-lg", onClick: function () { _this.submitPlayerInputData(_this.state.inputvalue); } }, "Submit"),
-            React.createElement(DropDown_1.default, null),
-            React.createElement(SoundPlayer_1.default, null)));
-    };
-    GameStarted.prototype.submitPlayerInputData = function (answer) {
+    PlayerList.prototype.populatePlayerInputData = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var url, requestOptions;
+            var response, data;
             return __generator(this, function (_a) {
-                console.log(JSON.stringify({ answer: answer }));
-                url = 'api/game';
-                requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ answer: answer })
-                };
-                fetch(url, requestOptions)
-                    .then(function (response) { return console.log("Data submited"); })
-                    .catch(function (error) { return console.log('Form submit error', error); });
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log("hämta input");
+                        return [4 /*yield*/, fetch('api/game')];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        data = _a.sent();
+                        console.log("Loading serverdata");
+                        this.setState({ playerinput: data });
+                        return [2 /*return*/];
+                }
             });
         });
     };
-    return GameStarted;
+    PlayerList.displayName = PlayerList.name;
+    return PlayerList;
 }(React.PureComponent));
-exports.GameStarted = GameStarted;
-//# sourceMappingURL=GameStarted.js.map
+exports.default = PlayerList;
+//# sourceMappingURL=PlayerList.js.map
